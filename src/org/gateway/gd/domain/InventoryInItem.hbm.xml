@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="InventoryInItem" table="inventoryinitem">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="date" type="date" />
+		<property name="inType" />
+		<property name="checkyn" />
+		<property name="checker" />
+		<property name="producer" />
+		<property name="checkDate" />
+		<property name="description" />
+
+		<!-- user属性，本类与User的多对一 -->
+		<many-to-one name="user" class="User" column="userId"/>
+
+		<!-- department属性，本类与Department的多对一 -->
+		<many-to-one name="department" class="Department" column="departmentId" />
+
+
+		<!-- warehouse属性，本类与Warehouse的多对一 -->
+		<many-to-one name="warehouse" class="Warehouse" column="warehouseId"/>
+
+		<!-- supplier属性，本类与Supplier的多对一 -->
+		<many-to-one name="supplier" class="Supplier" column="supplierId" />
+
+		<!-- inventoryInMaterials属性，本类与InventoryInMaterials的一对多 -->
+		<set name="inventoryInMaterials" cascade="delete" lazy="false">
+			<key column="inventoryInItemId"></key>
+			<one-to-many class="InventoryInMaterials" />
+		</set>
+
+	</class>
+
+</hibernate-mapping>

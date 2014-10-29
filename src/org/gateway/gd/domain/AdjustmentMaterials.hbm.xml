@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="AdjustmentMaterials" table="adjustmentMaterials">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="number" type="double" />
+		<property name="realNumber" type="double" />
+		<property name="adjustNumber" type="double" />
+		<property name="differenceQuantity" type="double" />
+		<property name="differenceReason" />
+		<property name="adjustReason" />
+
+
+		<!-- materials属性，本类与Materials的多对一 -->
+		<many-to-one name="materials" class="Materials" column="materialsId" />
+
+		<!-- adjustmentItem属性，本类与AdjustmentItem的多对一 -->
+		<many-to-one name="adjustmentItem" class="AdjustmentItem" column="adjustmentItemId"></many-to-one>
+		
+		
+	</class>
+
+</hibernate-mapping>

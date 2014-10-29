@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="BaseData" table="basedata">
+		<id name="id">
+			<generator class="assigned" />
+		</id>
+		<property name="category" />
+		<property name="price" type="double" />
+		<property name="yearAmountOfCapital" type="double" />
+		<property name="yearStorage" type="double" />
+
+	</class>
+
+</hibernate-mapping>

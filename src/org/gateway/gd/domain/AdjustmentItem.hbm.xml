@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="AdjustmentItem" table="adjustmentItem">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="date" type="date" />
+		<property name="checker" />
+		<property name="checkyn" />
+		<property name="checkDate" />
+		<property name="producer" />
+		<property name="description" />
+
+		<!-- user属性，本类与User的多对一 -->
+		<many-to-one name="user" class="User" column="userId" />
+
+		<!-- adjustmentMaterials属性，本类与AdjustmentMaterials的一对多 -->
+		<set name="adjustmentMaterials" cascade="delete" lazy="false">
+			<key column="adjustmentItemId"></key>
+			<one-to-many class="AdjustmentMaterials" />
+		</set>
+		
+	</class>
+
+</hibernate-mapping>

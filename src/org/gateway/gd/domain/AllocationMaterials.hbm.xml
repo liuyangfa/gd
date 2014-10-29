@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="AllocationMaterials" table="allocationMaterials">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="number" type="double" />
+
+		<!-- allocationItem属性，本类与AllocationItem的多对一 -->
+		<many-to-one name="allocationItem" class="AllocationItem" column="allocationItemId" />
+		
+		<!-- materials属性，本类与Materials的多对一 -->
+		<many-to-one name="materials" class="Materials" column="materialsId" />
+		
+		<!-- unit属性，本类与Materials的多对一 -->
+		<many-to-one name="unit" class="Unit" column="unitId" />
+
+	</class>
+
+</hibernate-mapping>

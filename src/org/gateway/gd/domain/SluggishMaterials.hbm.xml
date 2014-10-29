@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="SluggishMaterials" table="sluggishmaterials">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="materialsId" type="long" />
+		<property name="materialsName" />
+		<property name="number" type="double" />
+		<property name="warehouseName" />
+		<property name="date" type="date" />
+		<property name="description" />
+	</class>
+
+</hibernate-mapping>

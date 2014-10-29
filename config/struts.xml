@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 开启动态方法调用 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!-- 设定为开发模式 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 指定action的后缀 -->
+	<constant name="struts.action.extension" value="action" />
+	<!-- 指定主题为simple -->
+	<constant name="struts.ui.theme" value="simple" />
+
+	<package name="default" namespace="/" extends="json-default">
+
+		<!-- 配置拦截器 -->
+		<interceptors>
+			<!-- 声明权限拦截器 -->
+			<interceptor name="checkPrivilege"
+				class="org.gateway.gd.util.CheckPrivilegeInterceptor" />
+			<!-- 日志拦截器 -->
+			<interceptor name="systemlogInterceptor"
+				class="org.gateway.gd.util.SystemlogInterceptor"></interceptor>
+			<!-- 声明拦截器栈 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="checkPrivilege" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="systemlogInterceptor">
+					<param name="includeMethods">add,edit,delete,login,logout,setPrivilege,initPassword,audit</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 默认本包中的所有action都要经过myStack这个拦截器栈 -->
+		<default-interceptor-ref name="myStack" />
+
+
+		<!-- 全局result配置 -->
+		<global-results>
+			<result name="loginUI">/WEB-INF/jsp/loginLogoutAction/loginUI.jsp
+			</result>
+			<result name="privilegeError">/privilegeError.jsp</result>
+			<result name="input">/error_404.html</result>
+		</global-results>
+
+
+		<!-- 主页面 -->
+		<action name="indexAction_*" class="indexAction" method="{1}">
+			<result name="index">/WEB-INF/jsp/indexAction/index.jsp</result>
+			<result name="left">/WEB-INF/jsp/indexAction/left.jsp</result>
+			<result name="top">/WEB-INF/jsp/indexAction/top.jsp</result>
+			<result name="right">/WEB-INF/jsp/indexAction/right.jsp</result>
+			<result name="bottom">/WEB-INF/jsp/indexAction/bottom.jsp</result>
+		</action>
+
+		<!-- 用户登录注销功能 -->
+		<action name="loginLogoutAction_*" class="loginLogoutAction"
+			method="{1}">
+			<result name="toIndex" type="redirect">/index.jsp</result>
+			<result name="logout">/WEB-INF/jsp/loginLogoutAction/logout.jsp
+			</result>
+		</action>
+
+		<!-- =============================个人设置========================= -->
+		<!-- 个人信息 -->
+		<action name="personAction_*" class="personAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/personAction/list.jsp
+			</result>
+			<result name="saveUI">/WEB-INF/jsp/personAction/saveUI.jsp
+			</result>
+			<result name="toList" type="redirectAction">personAction_list
+			</result>
+			<result name="input">/WEB-INF/jsp/personAction/saveUI.jsp
+			</result>
+		</action>
+
+		<!-- 密码修改 -->
+		<action name="passwordAction_*" class="passwordAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/passwordAction/saveUI.jsp
+			</result>
+			<result name="success">/WEB-INF/jsp/passwordAction/success.jsp
+			</result>
+			<result name="input">/WEB-INF/jsp/passwordAction/saveUI.jsp
+			</result>
+		</action>
+
+		<!-- 系统通知 -->
+		<action name="systemNoticeAction_*" class="systemNoticeAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/systemNoticeAction/list.jsp</result>
+			<result name="listInfo">/WEB-INF/jsp/systemNoticeAction/listInfo.jsp
+			</result>
+			<result name="input">/WEB-INF/jsp/systemNoticeAction/list.jsp</result>
+		</action>
+
+		<!-- =================================系统设置=========================== -->
+		<!-- 岗位管理 -->
+		<action name="roleAction_*" class="roleAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/roleAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/roleAction/saveUI.jsp</result>
+			<result name="setPrivilegeUI">/WEB-INF/jsp/roleAction/setPrivilegeUI.jsp
+			</result>
+			<result name="toList" type="redirectAction">roleAction_list</result>
+		</action>
+
+		<!-- 部门管理 -->
+		<action name="departmentAction_*" class="departmentAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/departmentAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/departmentAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">departmentAction_list?parentId=${parentId}
+			</result>
+		</action>
+
+		<!-- 用户管理 -->
+		<action name="userAction_*" class="userAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/userAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/userAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">userAction_list?parentId=${parentId}
+			</result>
+		</action>
+
+
+		<!-- 客户管理 -->
+		<action name="consumerAction_*" class="consumerAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/consumerAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/consumerAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">consumerAction_list</result>
+		</action>
+
+		<!-- 供应商管理 -->
+		<action name="supplierAction_*" class="supplierAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/supplierAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/supplierAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">supplierAction_list</result>
+		</action>
+
+		<!-- 仓库管理 -->
+		<action name="warehouseAction_*" class="warehouseAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/warehouseAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/warehouseAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">warehouseAction_list</result>
+		</action>
+
+		<!-- 仓位管理 -->
+		<action name="positionAction_*" class="positionAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/positionAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/positionAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">positionAction_list</result>
+		</action>
+
+		<!-- 物料类别管理 -->
+		<action name="categoryAction_*" class="categoryAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/categoryAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/categoryAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">categoryAction_list</result>
+		</action>
+
+		<!-- 计量单位管理 -->
+		<action name="unitAction_*" class="unitAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/unitAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/unitAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">unitAction_list</result>
+		</action>
+
+		<!-- 物料管理 -->
+		<action name="materialsAction_*" class="materialsAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/materialsAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/materialsAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">materialsAction_list</result>
+		</action>
+
+		<!-- 系统日志管理 -->
+		<action name="systemlogAction_*" class="systemlogAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/systemlogAction/list.jsp</result>
+			<result name="input">/WEB-INF/jsp/systemlogAction/list.jsp</result>
+		</action>
+
+
+		<!-- =========================入库管理=========================== -->
+
+		<!-- 外购入库管理 -->
+		<action name="purchaseAction_*" class="purchaseAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/purchaseAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/purchaseAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">purchaseAction_list</result>
+			<result name="input">/WEB-INF/jsp/purchaseAction/list.jsp</result>
+			<result name="search">/WEB-INF/jsp/purchaseAction/list.jsp</result>
+		</action>
+
+		<!-- 产品入库管理 -->
+		<action name="productAction_*" class="productAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/productAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/productAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">productAction_list</result>
+			<result name="input">/WEB-INF/jsp/productAction/list.jsp</result>
+			<result name="search">/WEB-INF/jsp/productAction/list.jsp</result>
+		</action>
+
+		<!-- 其他入库管理 -->
+		<action name="otherInAction_*" class="otherInAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/otherInAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/otherInAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">otherInAction_list</result>
+			<result name="input">/WEB-INF/jsp/otherInAction/list.jsp</result>
+			<result name="search">/WEB-INF/jsp/otherInAction/list.jsp</result>
+		</action>
+
+		<!-- =========================出库管理=========================== -->
+
+		<!-- 生产领料出库管理 -->
+		<action name="produceAction_*" class="produceAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/produceAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/produceAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">produceAction_list</result>
+			<result name="input">/WEB-INF/jsp/produceAction/list.jsp</result>
+			<result name="search">/WEB-INF/jsp/produceAction/list.jsp</result>
+		</action>
+
+		<!-- 销售出库管理 -->
+		<action name="salesAction_*" class="salesAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/salesAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/salesAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">salesAction_list</result>
+			<result name="input">/WEB-INF/jsp/salesAction/list.jsp</result>
+			<result name="search">/WEB-INF/jsp/salesAction/list.jsp</result>
+		</action>
+
+		<!-- 其他出库管理 -->
+		<action name="otherOutAction_*" class="otherOutAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/otherOutAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/otherOutAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">otherOutAction_list</result>
+			<result name="input">/WEB-INF/jsp/otherOutAction/list.jsp</result>
+			<result name="search">/WEB-INF/jsp/otherOutAction/list.jsp</result>
+		</action>
+
+		<!-- ========================库存管理============================= -->
+		<!-- 实时库存 -->
+		<action name="realtimeInventoryAction_*" class="realtimeInventoryAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/realtimeInventoryAction/list.jsp
+			</result>
+		</action>
+
+		<!-- 库存盘点 -->
+		<action name="physicalAction_*" class="physicalAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/physicalAction/list.jsp</result>
+			<result name="listInfo">/WEB-INF/jsp/physicalAction/listInfo.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/physicalAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">physicalAction_list</result>
+			<result name="input">/WEB-INF/jsp/physicalAction/list.jsp</result>
+			<result name="addWay">/WEB-INF/jsp/physicalAction/way.jsp</result>
+			<result name="createAdjust" type="redirectAction">physicalAction_list</result>
+		</action>
+
+		<!-- 库存调整 -->
+		<action name="adjustmentAction_*" class="adjustmentAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/adjustmentAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/adjustmentAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">adjustmentAction_list</result>
+			<result name="input">/WEB-INF/jsp/adjustmentAction/list.jsp</result>
+			<result name="listInfo">/WEB-INF/jsp/adjustmentAction/listInfo.jsp
+			</result>
+		</action>
+
+		<!-- 库存调拨 -->
+		<action name="allocationAction_*" class="allocationAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/allocationAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/allocationAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">allocationAction_list</result>
+			<result name="input">/WEB-INF/jsp/allocationAction/list.jsp</result>
+			<result name="ajax" type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+
+		<!-- ============================决策分析======================================== -->
+		<!-- 呆滞料管理 -->
+		<action name="sluggishAction_*" class="sluggishAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/sluggishAction/list.jsp</result>
+			<result name="toList" type="redirectAction">sluggishAction_list</result>
+		</action>
+
+		<!-- 库存预警管理 -->
+		<action name="inventoryWarnAction_*" class="inventoryWarnAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/inventoryWarnAction/list.jsp
+			</result>
+			<result name="toList" type="redirectAction">inventoryWarnAction_list</result>
+		</action>
+
+		<!-- ABC分类管理 -->
+		<!-- abc基础数据 -->
+		<action name="baseDataAction_*" class="baseDataAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/baseDataAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/baseDataAction/saveUI.jsp
+			</result>
+			<result name="toList" type="redirectAction">baseDataAction_list</result>
+		</action>
+
+		<!-- abc分析、分类 -->
+		<action name="abcAnalysisAction_*" class="abcAnalysisAction"
+			method="{1}">
+			<result name="list">/WEB-INF/jsp/abcAnalysisAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/abcAnalysisAction/saveUI.jsp
+			</result>
+			<result name="toList" type="redirectAction">abcAnalysisAction_list</result>
+		</action>
+	</package>
+</struts>

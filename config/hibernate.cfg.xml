@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+<session-factory>
+
+	<!-- SQL 方言 -->
+	<property name="dialect">
+		org.hibernate.dialect.MySQL5InnoDBDialect
+	</property>
+	<!-- Echo all executed SQL to stdout 在标准输出设备中回显所有执行的sql语句 -->
+	<property name="show_sql">false</property>
+
+	<!-- Drop and re-create the database schema on startup -->
+	<property name="hbm2ddl.auto">update</property>
+
+	<property name="hibernate.jdbc.batch_size">50</property>
+
+	<!-- 导入映射文件 -->
+	<mapping resource="org/gateway/gd/domain/Category.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/Consumer.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/Department.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/Materials.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/Position.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/Privilege.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/Role.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/Supplier.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/Systemlog.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/SystemNotice.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/Unit.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/User.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/Warehouse.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/InventoryInItem.hbm.xml" />
+	<mapping
+		resource="org/gateway/gd/domain/InventoryInMaterials.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/InventoryOutItem.hbm.xml" />
+	<mapping
+		resource="org/gateway/gd/domain/InventoryOutMaterials.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/RealtimeInventory.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/AllocationItem.hbm.xml" />
+	<mapping
+		resource="org/gateway/gd/domain/AllocationMaterials.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/PhysicalItem.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/PhysicalMaterials.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/AdjustmentItem.hbm.xml" />
+	<mapping
+		resource="org/gateway/gd/domain/AdjustmentMaterials.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/InventoryWarn.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/SluggishMaterials.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/AbcAnalysis.hbm.xml" />
+	<mapping resource="org/gateway/gd/domain/BaseData.hbm.xml" />
+
+</session-factory>
+
+</hibernate-configuration>

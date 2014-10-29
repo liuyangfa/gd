@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="AbcAnalysis" table="abcanalysis">
+		<id name="id">
+			<generator class="assigned" />
+		</id>
+		<property name="category" />
+		<property name="itemTotalPercent" type="double" />
+		<property name="price" type="double" />
+		<property name="yearStorage" type="double" />
+		<property name="yearAmountOfCapital" type="double" />
+		<property name="yearAmountOfCapitalTotal" type="double" />
+		<property name="yearAmountOfCapitalTotalPercent" type="double" />
+		<property name="classification" />
+	</class>
+
+</hibernate-mapping>

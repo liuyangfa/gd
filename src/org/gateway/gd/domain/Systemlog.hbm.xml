@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="Systemlog" table="systemlog">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="ipAddr" />
+		<property name="host"></property>
+		<property name="path"></property>
+		<property name="date" type="text"></property>
+		<property name="param"></property>
+
+		<!-- user属性，本类与User的多对一 -->
+		<many-to-one name="user" class="User" column="userId" />
+
+	</class>
+
+</hibernate-mapping>

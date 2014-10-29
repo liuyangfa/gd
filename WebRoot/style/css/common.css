@@ -1,0 +1,59 @@
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+.pull-right {
+	margin-top: -5px;
+}
+
+#a {
+	text-decoration: none;
+	color: #000;
+}
+
+.container {
+	width: 97% !important;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.page-header {
+	padding-bottom:5px !important;
+	margin: 10px 0 10px !important;
+	border-bottom: 1px solid #eee;
+}
+#audit {
+	text-decoration: none;
+	color: #000;
+}
+#delete {
+	text-decoration: none;
+	color: #000;
+}
+#edit {
+	text-decoration: none;
+	color: #000;
+}
+#init {
+	text-decoration: none;
+	color: #000;
+}
+tbody tr td a{
+	text-decoration: none;
+	color: #000;
+}
+#search {
+	margin-top: 25px;
+}
+#label{
+	color:#D3D3D3;
+}
+#bottom input{
+	color:#D3D3D3;
+}
+th{
+	text-align: center;
+}

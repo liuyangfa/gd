@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="Consumer" table="consumer">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="contact" />
+		<property name="address" />
+		<property name="phoneNumber" />
+		<property name="description" />
+		
+		<!-- inventoryOutItem属性，本类与InventoryOutItem的一对多 -->
+		<set name="inventoryOutItem" lazy="false">
+			<key column="consumerId"></key>
+			<one-to-many class="InventoryOutItem"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

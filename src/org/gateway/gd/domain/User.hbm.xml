@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="User" table="user">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="loginName" />
+		<property name="password" />
+		<property name="birthday" type="date" />
+		<property name="sex" />
+		<property name="phoneNumber" />
+		<property name="email" />
+		<property name="address" />
+		<property name="description" />
+
+
+		<!-- department属性，本类与Department的多对一 -->
+		<many-to-one name="department" class="Department" column="departmentId" />
+
+
+		<!-- roles属性，本类与Role的多对多 -->
+		<set name="roles" table="user_role" lazy="false">
+			<key column="userId"></key>
+			<many-to-many class="Role" column="roleId"></many-to-many>
+		</set>
+
+		<!-- warehouses属性，本类与Warehouse的多对多 -->
+		<set name="warehouses" table="user_warehouse" lazy="false">
+			<key column="userId"></key>
+			<many-to-many class="Warehouse" column="warehouseId" />
+		</set>
+
+		<!-- systemlogs属性，本类与Systemlog的一对多一 -->
+		<set name="systemlogs" lazy="false">
+			<key column="userId"></key>
+			<one-to-many class="Systemlog" />
+		</set>
+
+		<!-- systemNotices属性，本类与SystemNotice的多对多 -->
+		<set name="systemNotices" table="systemNotice_user" inverse="true" lazy="false">
+			<key column="userId"></key>
+			<many-to-many class="SystemNotice" column="systemNoticeId"></many-to-many>
+		</set>
+
+		<!-- inventoryInItems属性，本类与InventoryInItem的一对多 -->
+		<set name="inventoryInItems" lazy="false">
+			<key column="userId"></key>
+			<one-to-many class="InventoryInItem" />
+		</set>
+
+		<!-- inventoryOutItem属性，本类与InventoryOutItem的一对多 -->
+		<set name="inventoryOutItem" lazy="false">
+			<key column="userId"></key>
+			<one-to-many class="InventoryOutItem" />
+		</set>
+
+		<!-- physicalItems属性，本类与PhysicalItem的一对多 -->
+		<set name="physicalItems" lazy="false">
+			<key column="userId"></key>
+			<one-to-many class="PhysicalItem" />
+		</set>
+
+		<!-- allocationItems属性，本类与AllocationItem的一对多 -->
+		<set name="allocationItems" lazy="false">
+			<key column="userId"></key>
+			<one-to-many class="AllocationItem" />
+		</set>
+
+		<!-- allocationItems属性，本类与AllocationItem的一对多 -->
+		<set name="adjustmentItems" lazy="false">
+			<key column="userId"></key>
+			<one-to-many class="AdjustmentItem" />
+		</set>
+
+
+	</class>
+
+</hibernate-mapping>

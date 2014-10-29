@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="InventoryOutMaterials" table="inventoryoutmaterials">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="unitPrice" type="double" />
+		<property name="number" type="double" />
+		<property name="totalPrice" type="double" />
+		<property name="description" />
+
+		<!-- inventoryOutItem属性，本类与InventoryOutItem的多对一 -->
+		<many-to-one name="inventoryOutItem" class="InventoryOutItem"
+			column="inventoryOutItemId" />
+
+		<!-- materials属性，本类与Materials的多对一 -->
+		<many-to-one name="materials" class="Materials" column="materialsId" />
+		
+		<!-- unit属性，本类与Unit的多对一 -->
+		<many-to-one name="unit" class="Unit" column="unitId" />
+	</class>
+
+</hibernate-mapping>

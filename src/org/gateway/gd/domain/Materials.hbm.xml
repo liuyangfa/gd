@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="Materials" table="materials">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="description" />
+		<property name="specifications" />
+		<property name="lowestInventory" type="double" />
+		<property name="highestInventory" type="double" />
+		<property name="safeInventory" type="double" />
+		<property name="noAmountOfTime" type="long" />
+
+		<!-- category属性，本类与Category的多对一 -->
+		<many-to-one name="category" class="Category" column="categoryId" />
+
+		<!-- inventoryInMaterials属性，本类与inventoryInMaterials的一对多 -->
+		<set name="inventoryInMaterials" lazy="false">
+			<key column="materialsId"></key>
+			<one-to-many class="InventoryInMaterials"/>
+		</set>
+		
+		<!-- inventoryOutMaterials属性，本类与inventoryOutMaterials的一对多 -->
+		<set name="inventoryOutMaterials" lazy="false">
+			<key column="materialsId"></key>
+			<one-to-many class="InventoryOutMaterials"/>
+		</set>
+		
+		<!-- realtimeInventories属性，本类与RealtimeInventory的一对多 -->
+		<set name="realtimeInventories" lazy="false">
+			<key column="materialsId"></key>
+			<one-to-many class="RealtimeInventory"/>
+		</set>
+		
+		<!-- allocationMaterials属性，本类与AllocationMaterials的一对多 -->
+		<set name="allocationMaterials" lazy="false">
+			<key column="materialsId"></key>
+			<one-to-many class="AllocationMaterials"/>
+		</set>
+		
+		<!-- physicalMaterials属性，本类与PhysicalMaterials的一对多 -->
+		<set name="physicalMaterials" lazy="false">
+			<key column="materialsId"></key>
+			<one-to-many class="PhysicalMaterials"/>
+		</set>
+		
+		<!-- adjustmentMaterials属性，本类与AdjustmentMaterials的一对多 -->
+		<set name="adjustmentMaterials" lazy="false">
+			<key column="materialsId"></key>
+			<one-to-many class="AdjustmentMaterials"/>
+		</set>
+		
+	</class>
+
+</hibernate-mapping>

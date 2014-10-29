@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE validators PUBLIC
+  		"-//Apache Struts//XWork Validator 1.0.3//EN"
+  		"http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+  		
+<validators>
+	<field name="name">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>姓名不能为空</message>
+		</field-validator>
+	</field>
+	<field name="sex">
+		<field-validator type="required">
+			<message>性别不能为空</message>
+		</field-validator>
+	</field>
+	<field name="birthday">
+		<field-validator type="required">
+			<message>出生日期不能为空</message>
+		</field-validator>
+		<field-validator type="conversion">
+           <message>类型转换失败</message>
+        </field-validator>
+		<field-validator type="date">
+			<param name="min">01/01/1990</param>
+			<param name="max">01/01/2040</param>
+			<message>出生日期必须在${min}和${max}之间</message>
+		</field-validator>
+	</field>
+	<field name="email">
+		<field-validator type="required">
+			<message>邮箱不能为空</message>
+		</field-validator>
+		<field-validator type="email">
+			<message>邮箱格式不正确</message>
+		</field-validator>
+	</field>
+	<field name="address">
+		<field-validator type="regex">
+			<param name="regex"><![CDATA[(^[\u4e00-\u9fa5]+)]]></param>
+			<message>地址必须是中文</message>
+		</field-validator>
+	</field>
+</validators>

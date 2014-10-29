@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="Unit" table="unit">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="description" />
+
+		<!-- inventoryInMaterials属性，本类与InventoryInMaterials的一对多 -->
+		<set name="inventoryInMaterials" lazy="false">
+			<key column="unitId"></key>
+			<one-to-many class="InventoryInMaterials" />
+		</set>
+		
+		<!-- inventoryOutMaterials属性，本类与InventoryOutMaterials的一对多 -->
+		<set name="inventoryOutMaterials" lazy="false">
+			<key column="unitId"></key>
+			<one-to-many class="InventoryOutMaterials" />
+		</set>
+		
+		<!-- realtimeInventories属性，本类与RealtimeInventory的一对多 -->
+		<set name="realtimeInventories" lazy="false">
+			<key column="unitId"></key>
+			<one-to-many class="RealtimeInventory"/>
+		</set>
+		
+		<!-- allocationMaterials属性，本类与AllocationMaterials的一对多 -->
+		<set name="allocationMaterials" lazy="false">
+			<key column="unitId"></key>
+			<one-to-many class="AllocationMaterials"/>
+		</set>
+		
+		<!-- physicalMaterials属性，本类与PhysicalMaterials的一对多 -->
+		<set name="physicalMaterials" lazy="false">
+			<key column="unitId"></key>
+			<one-to-many class="PhysicalMaterials" />
+		</set>
+		
+	</class>
+
+</hibernate-mapping>

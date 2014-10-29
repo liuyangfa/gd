@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.gateway.gd.domain">
+
+	<class name="Category" table="category">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="description" />
+
+
+		<!-- materials属性，本类与Materials的一对多 -->
+		<set name="materials" lazy="false">
+			<key column="categoryId"></key>
+			<one-to-many class="Materials" />
+		</set>
+
+	</class>
+
+</hibernate-mapping>
