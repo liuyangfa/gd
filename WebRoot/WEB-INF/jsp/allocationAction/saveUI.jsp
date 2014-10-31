@@ -83,39 +83,39 @@ function deleteRow(){
 	$("table tr:not(:first):last").remove();
 }
 
-$(document).ready(function(){
-	$('select[name="outWarehouseId"]').change(function(){
-		var selectValue=$('select[name="outWarehouseId"] option:selected').val();
-		$("#material").children('option[value!=""]').remove();
-		$.ajax({
-			url:"allocationAction_getMaterials.action",
-			 type:"post",
-			dataType:"json",
-			data:{outWarehouseId:selectValue},
-			success:function(data){
-				$.each(data, function(index,value){
-					$("#material").append("<option value='"+value.materials.id+"'>"+value.materials.name+"</option>");
-				});
-			}
-		});
-	});
+// $(document).ready(function(){
+// 	$('select[name="outWarehouseId"]').change(function(){
+// 		var selectValue=$('select[name="outWarehouseId"] option:selected').val();
+// 		$("#material").children('option[value!=""]').remove();
+// 		$.ajax({
+// 			url:"allocationAction_getMaterials.action",
+// 			 type:"post",
+// 			dataType:"json",
+// 			data:{outWarehouseId:selectValue},
+// 			success:function(data){
+// 				$.each(data, function(index,value){
+// 					$("#material").append("<option value='"+value.materials.id+"'>"+value.materials.name+"</option>");
+// 				});
+// 			}
+// 		});
+// 	});
 	
-	$('select[name="materialsId"]').change(function(){
-		var selectValue=$('select[name="materialsId"] option:selected').val();
-		var selectWare=$('select[name="outWarehouseId"] option:selected').val();
-		$.ajax({
-			url:"allocationAction_getUnit.action",
-			 type:"post",
-			dataType:"json",
-			data:{materialsId:selectValue,outWarehouseId:selectWare},
-			success:function(data){
-				$("select[name='unitId']").append("<option value='"+data.unit.id+"'>"+data.unit.name+"</option>");//.attr("value",data.unit.id);
-				$("input[name='number']").attr("value",data.number);
+// 	$('select[name="materialsId"]').change(function(){
+// 		var selectValue=$('select[name="materialsId"] option:selected').val();
+// 		var selectWare=$('select[name="outWarehouseId"] option:selected').val();
+// 		$.ajax({
+// 			url:"allocationAction_getUnit.action",
+// 			 type:"post",
+// 			dataType:"json",
+// 			data:{materialsId:selectValue,outWarehouseId:selectWare},
+// 			success:function(data){
+// 				$("select[name='unitId']").append("<option value='"+data.unit.id+"'>"+data.unit.name+"</option>");//.attr("value",data.unit.id);
+// 				$("input[name='number']").attr("value",data.number);
 				
-			}
-		});
-	});
-});
+// 			}
+// 		});
+// 	});
+// });
 </script>
 </head>
 
@@ -131,7 +131,7 @@ $(document).ready(function(){
         <div class="form-group">
           <label for="input" class="col-md-4 control-label">调出仓库:</label>
           <div class="col-md-8">
-			<s:select id="input" cssClass="form-control input-sm" name="outWarehouseId" list="#warehouseList" 
+			<s:select id="input" cssClass="form-control input-sm" name="outWarehouseId" list="#warehouses" 
       			listKey="id" listValue="name" headerKey="" headerValue="">
 	  		</s:select>
           </div>
@@ -218,19 +218,18 @@ $(document).ready(function(){
           <td>
 			<select id="material" name="materialsId" id="input" class="form-control input-sm">
 			<option value="">请选择</option>
-<!-- 				<s:iterator value="#materialsList"> -->
-<!-- 					<option value="${id}">${ name }</option> -->
-<!-- 				</s:iterator> -->
+				<s:iterator value="#materialsList">
+					<option value="${id}">${ name }</option>
+				</s:iterator>
 			</select>
 	  	  </td>
           <td>
 	  		<select name="unitId" id="input" class="form-control input-sm">
-<!-- 	  		<option value="">请选择</option> -->
-<!-- 				<s:iterator value="#unitList"> -->
-<!-- 					<option value="${id}">${ name }</option> -->
-<!-- 				</s:iterator> -->
+	  		<option value="">请选择</option>
+				<s:iterator value="#unitList">
+					<option value="${id}">${ name }</option>
+				</s:iterator>
 			</select>
-<!-- 				<input type="text" id="input" name="unitId" class="form-control input-sm"> -->
 		  </td>
           <td>
           		<input type="text" id="input" name="number" class="form-control input-sm">

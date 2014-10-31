@@ -8,34 +8,37 @@
 <script src="${pageContext.request.contextPath}/Chart.js-master/Chart.js"></script>
 <script>
 $(document).ready(function(){
-		var randomScalingFactor = function(){ 
-			return Math.round(Math.random()*100);
-			};
 			$('.canvas').children('#canvas1').hide();
 			$('.canvas').children('#canvas2').hide();
 			$('#z').click(function(){
+				var result = new Array();
+				result.push("0");
+				var cap=new Array();
+				cap.push("0");
+				$.ajax({
+		 			url:"abcAnalysisAction_labelLine.action",
+		 			async:false,
+		 			type:"post",
+		 			dataType:"json",
+		 			success:function(data){
+		 				$.each(data, function(index,value){
+		 					result.push(value.category);
+		 					cap.push(value.yearAmountOfCapitalTotalPercent);
+		 				});
+		 			}
+		 		});
 				var lineChartData = {
-						labels : ["January","February","March","April","May","June","July"],
+						labels : result,
 						datasets : [
 							{
-								label: "My First dataset",
+								label: "折线图",
 								fillColor : "rgba(220,220,220,0.2)",
 								strokeColor : "rgba(220,220,220,1)",
 								pointColor : "rgba(220,220,220,1)",
 								pointStrokeColor : "#fff",
 								pointHighlightFill : "#fff",
 								pointHighlightStroke : "rgba(220,220,220,1)",
-								data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-							},
-							{
-								label: "My Second dataset",
-								fillColor : "rgba(151,187,205,0.2)",
-								strokeColor : "rgba(151,187,205,1)",
-								pointColor : "rgba(151,187,205,1)",
-								pointStrokeColor : "#fff",
-								pointHighlightFill : "#fff",
-								pointHighlightStroke : "rgba(151,187,205,1)",
-								data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+								data : cap
 							}
 						]
 
@@ -49,22 +52,29 @@ $(document).ready(function(){
 				$('.canvas').children('#canvas2').hide();
 			});
 			$('#f').click(function(){
+				var result = new Array();
+				var cap=new Array();
+				$.ajax({
+		 			url:"abcAnalysisAction_labelLine.action",
+		 			async:false,
+		 			type:"post",
+		 			dataType:"json",
+		 			success:function(data){
+		 				$.each(data, function(index,value){
+		 					result.push(value.category);
+		 					cap.push(value.yearAmountOfCapitalTotalPercent);
+		 				});
+		 			}
+		 		});
 				var barChartData = {
-						labels : ["January","February","March","April","May","June","July"],
+						labels : result,
 						datasets : [
 							{
 								fillColor : "rgba(220,220,220,0.5)",
 								strokeColor : "rgba(220,220,220,0.8)",
 								highlightFill: "rgba(220,220,220,0.75)",
 								highlightStroke: "rgba(220,220,220,1)",
-								data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-							},
-							{
-								fillColor : "rgba(151,187,205,0.5)",
-								strokeColor : "rgba(151,187,205,0.8)",
-								highlightFill : "rgba(151,187,205,0.75)",
-								highlightStroke : "rgba(151,187,205,1)",
-								data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+								data : cap
 							}
 						]
 

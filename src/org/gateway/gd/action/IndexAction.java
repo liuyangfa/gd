@@ -25,8 +25,8 @@ public class IndexAction extends ActionSupport {
 	public String right() {
 		return "right";
 	}
-	
-	public String bottom(){
+
+	public String bottom() {
 		return "bottom";
 	}
 

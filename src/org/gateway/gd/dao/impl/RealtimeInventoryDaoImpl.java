@@ -51,5 +51,10 @@ public class RealtimeInventoryDaoImpl extends BaseDaoImpl<RealtimeInventory>
 				.setParameter(0, materialsId).uniqueResult();
 	}
 
+	public List<Long> getTotalWareId() {
+		return getSession().createQuery(
+				"select DISTINCT r.warehouse.id FROM RealtimeInventory r").list();
+	}
+
 
 }

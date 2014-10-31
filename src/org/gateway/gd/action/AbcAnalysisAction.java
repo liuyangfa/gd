@@ -13,37 +13,41 @@ import com.opensymphony.xwork2.ActionContext;
 @Scope("prototype")
 @SuppressWarnings("serial")
 public class AbcAnalysisAction extends BaseAction<AbcAnalysis> {
-	// ==========列表=====================
+	private Object data;
+
+	/**
+	 * 获取所有记录
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public String list() throws Exception {
 		List<AbcAnalysis> abcAnalysisList = abcAnalysisService.findAll();
 		ActionContext.getContext().put("abcAnalysisList", abcAnalysisList);
+
 		return "list";
 	}
 
-	// ==========删除=====================
-	public String delete() throws Exception {
-		departmentService.delete(model.getId());
-		return "toList";
+	/**
+	 * ABC分类图
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String labelLine() throws Exception {
+
+		List<AbcAnalysis> abcAnalysisList = abcAnalysisService.findAll();
+		data = abcAnalysisList;
+
+		return "json";
 	}
 
-	// ==========添加页面=====================
-	public String addUI() throws Exception {
-
-		return "saveUI";
+	public Object getData() {
+		return data;
 	}
 
-	// ==========添加=====================
-	public String add() throws Exception {
-		return "toList";
+	public void setData(Object data) {
+		this.data = data;
 	}
 
-	// ==========修改页面=====================
-	public String editUI() throws Exception {
-		return "saveUI";
-	}
-
-	// ==========修改=====================
-	public String edit() throws Exception {
-		return "toList";
-	}
 }

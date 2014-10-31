@@ -6,7 +6,27 @@
 <title>top</title>
 <%@ include  file="/WEB-INF/jsp/public/common.jspf"%>
 <script src="${pageContext.request.contextPath}/script/showNowTime.js"></script>
-
+<script type="text/javascript">
+/**
+ * ajax轮询进行消息推送
+ */
+	function get_data()
+	{
+		$.ajax({
+			url: 'systemNoticeAction_pushData.action',
+			type:"post",
+			dataType:"json",
+			success: function(data) {
+				if(data!=0){
+					$('#number').remove();
+					$('#notice').append("<span id='number' class='badge'>"+data+"</span>");
+				}
+			}
+		});
+	}
+// 	setTimeout(function() {get_data();},200);
+	setInterval("get_data()",1000);//1秒一次执行
+</script>
 <style>
 .clock {
 	margin-top: 15px;
@@ -25,7 +45,7 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 				<li><a title="系统通知" target="right" href="${pageContext.request.contextPath}/systemNoticeAction_list.action">
-					<i class="fa fa-bell-o fa-lg"></i><span class="badge">${count}</span></a></li>
+					<i id="notice" class="fa fa-bell-o fa-lg"></i></a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/indexAction_index.action"
 						target="_parent" title="主页"><i

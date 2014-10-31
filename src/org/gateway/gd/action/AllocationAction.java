@@ -1,6 +1,7 @@
 package org.gateway.gd.action;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +10,6 @@ import org.gateway.gd.domain.AllocationItem;
 import org.gateway.gd.domain.AllocationMaterials;
 import org.gateway.gd.domain.InventoryInItem;
 import org.gateway.gd.domain.Materials;
-import org.gateway.gd.domain.RealtimeInventory;
 import org.gateway.gd.domain.Unit;
 import org.gateway.gd.domain.User;
 import org.gateway.gd.domain.Warehouse;
@@ -46,10 +46,6 @@ public class AllocationAction extends BaseAction<Object> {
 
 	private int pageNum = 1;
 	private int pageSize = 8;
-	private List reaList;
-	
-	
-	private Object data;
 
 	// ==========列表=====================
 	public String list() throws Exception {
@@ -78,18 +74,26 @@ public class AllocationAction extends BaseAction<Object> {
 		// 仓库的相关数据
 		List<Warehouse> warehouseList = warehouseService.findAll();
 		ActionContext.getContext().put("warehouseList", warehouseList);
-
+		
+		// 调出仓库
+		List<Long> warehouseIds=realtimeInventoryService.getTotalWareId();
+		List<Warehouse> warehouses=new ArrayList<Warehouse>();
+		for (Long long1 : warehouseIds) {
+			warehouses.add(warehouseService.getById(long1));
+		}
+		ActionContext.getContext().put("warehouses", warehouses);
+		
 		// 用户的相关数据
 		List<User> userList = userService.findAll();
 		ActionContext.getContext().put("userList", userList);
 
 		// 物料的相关数据
-//		List<Materials> materialsList = materialsService.findAll();
-//		ActionContext.getContext().put("materialsList", materialsList);
+		List<Materials> materialsList = materialsService.findAll();
+		ActionContext.getContext().put("materialsList", materialsList);
 
 		// 单位相关数据
-//		List<Unit> unitList = unitService.findAll();
-//		ActionContext.getContext().put("unitList", unitList);
+		List<Unit> unitList = unitService.findAll();
+		ActionContext.getContext().put("unitList", unitList);
 
 		// 显示单据当前的审核状态
 		ActionContext.getContext().put("checkyn", InventoryInItem.CHECKN);
@@ -103,50 +107,50 @@ public class AllocationAction extends BaseAction<Object> {
 	}
 
 	// 根据前台传回的outWarehouseId，获取到实时库存中的
-	public String getMaterials() throws Exception {
-		System.out.println(outWarehouseId);
-		List<RealtimeInventory> realtimeInventories = realtimeInventoryService.getByWarehouseId(outWarehouseId);
-		for(RealtimeInventory reInventory:realtimeInventories){
-			reInventory.setUnit(null);
-			Materials materials=reInventory.getMaterials();
-			materials.setAdjustmentMaterials(null);
-			materials.setAllocationMaterials(null);
-			materials.setInventoryInMaterials(null);
-			materials.setInventoryOutMaterials(null);
-			materials.setRealtimeInventories(null);
-			materials.setCategory(null);
-			materials.setPhysicalMaterials(null);
-			Warehouse warehouse=reInventory.getWarehouse();
-			warehouse.setAllocationItem(null);
-			warehouse.setAllocationItems(null);
-			warehouse.setInventoryInItem(null);
-			warehouse.setInventoryOutItem(null);
-			warehouse.setPhysicalItems(null);
-			warehouse.setPositions(null);
-			warehouse.setRealtimeInventories(null);
-			warehouse.setUsers(null);
-		}
-		data = realtimeInventories;
-		return "ajax";
-	}
+//	public String getMaterials() throws Exception {
+//		System.out.println(outWarehouseId);
+//		List<RealtimeInventory> realtimeInventories = realtimeInventoryService.getByWarehouseId(outWarehouseId);
+//		for(RealtimeInventory reInventory:realtimeInventories){
+//			reInventory.setUnit(null);
+//			Materials materials=reInventory.getMaterials();
+//			materials.setAdjustmentMaterials(null);
+//			materials.setAllocationMaterials(null);
+//			materials.setInventoryInMaterials(null);
+//			materials.setInventoryOutMaterials(null);
+//			materials.setRealtimeInventories(null);
+//			materials.setCategory(null);
+//			materials.setPhysicalMaterials(null);
+//			Warehouse warehouse=reInventory.getWarehouse();
+//			warehouse.setAllocationItem(null);
+//			warehouse.setAllocationItems(null);
+//			warehouse.setInventoryInItem(null);
+//			warehouse.setInventoryOutItem(null);
+//			warehouse.setPhysicalItems(null);
+//			warehouse.setPositions(null);
+//			warehouse.setRealtimeInventories(null);
+//			warehouse.setUsers(null);
+//		}
+//		data = realtimeInventories;
+//		return "ajax";
+//	}
 	
-	public String getUnit() throws Exception{
-		System.out.println(materialsId[0]);
-		RealtimeInventory realtimeInventory=realtimeInventoryService.getByMWId(materialsId[0], outWarehouseId);
-		System.out.println(realtimeInventory.getMaterials().getName());
-		realtimeInventory.setWarehouse(null);
-		realtimeInventory.setMaterials(null);
-		
-		Unit unit=realtimeInventory.getUnit();
-		unit.setAllocationMaterials(null);
-		unit.setInventoryInMaterials(null);
-		unit.setInventoryOutMaterials(null);
-		unit.setPhysicalMaterials(null);
-		unit.setRealtimeInventories(null);
-		
-		data = realtimeInventory;
-		return "ajax";
-	}
+//	public String getUnit() throws Exception{
+//		System.out.println(materialsId[0]);
+//		RealtimeInventory realtimeInventory=realtimeInventoryService.getByMWId(materialsId[0], outWarehouseId);
+//		System.out.println(realtimeInventory.getMaterials().getName());
+//		realtimeInventory.setWarehouse(null);
+//		realtimeInventory.setMaterials(null);
+//		
+//		Unit unit=realtimeInventory.getUnit();
+//		unit.setAllocationMaterials(null);
+//		unit.setInventoryInMaterials(null);
+//		unit.setInventoryOutMaterials(null);
+//		unit.setPhysicalMaterials(null);
+//		unit.setRealtimeInventories(null);
+//		
+//		data = realtimeInventory;
+//		return "ajax";
+//	}
 	
 	// ==========添加=====================
 	public String add() throws Exception {
@@ -385,16 +389,5 @@ public class AllocationAction extends BaseAction<Object> {
 		this.pageSize = pageSize;
 	}
 
-	public List getReaList() {
-		return reaList;
-	}
-
-	public Object getData() {
-		return data;
-	}
-
-	public void setData(Object data) {
-		this.data = data;
-	}
-
+	
 }

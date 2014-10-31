@@ -24,7 +24,7 @@
 		<many-to-one name="outWarehouse" class="Warehouse" column="outwarehouseId" />
 
 		<!-- allocationMaterials属性，本类与AllocationMaterials的一对多 -->
-		<set name="allocationMaterials" lazy="false">
+		<set name="allocationMaterials" lazy="false" cascade="delete">
 			<key column="allocationItemId"></key>
 			<one-to-many class="AllocationMaterials" />
 		</set>

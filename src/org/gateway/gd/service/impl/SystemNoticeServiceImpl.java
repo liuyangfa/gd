@@ -1,5 +1,7 @@
 package org.gateway.gd.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.gateway.gd.dao.SystemNoticeDao;
@@ -32,6 +34,10 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
 
 	public void save(SystemNotice systemNotice) {
 		systemNoticeDao.save(systemNotice);
+	}
+
+	public List<SystemNotice> getNotViewNumber(String viewn) {
+		return systemNoticeDao.getNotViewNumber(viewn);
 	}
 
 }

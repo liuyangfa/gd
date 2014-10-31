@@ -56,8 +56,8 @@ public class RealtimeInventoryServiceImpl implements RealtimeInventoryService {
 		return realtimeInventoryDao.getByMaterialsName(materialsName);
 	}
 
-	public RealtimeInventory getByMId(Long[] materialsId) {
-		return null;
+	public List<Long> getTotalWareId() {
+		return realtimeInventoryDao.getTotalWareId();
 	}
 
 }

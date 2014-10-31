@@ -7,14 +7,22 @@
 <title>bottom</title>
 <%@ include  file="/WEB-INF/jsp/public/common.jspf"%>
 <style>
-div{
-	padding:0px;
-	margin:1px;
+p{
+	text-align: center;
+}
+a:link,a:active,a:hover,a:visited{
+	color: #000000;
+	cursor: pointer;
+	text-decoration: none;
+}
+span{
+	color:#000;
+	cursor: pointer;
 }
 </style>
 </head>
 
 <body>
-	<div align="center">©2014 GraduatioinDesign 使用系统前必读 京ICP证030173号.</div>
+	<p><span>©2014 GraduatioinDesign</span> | <a>关于我们</a></p>
 </body>
 </html>

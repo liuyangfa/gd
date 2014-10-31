@@ -26,6 +26,6 @@ public interface RealtimeInventoryService {
 
 	Double getByMaterialsName(String materialsName);
 
-	RealtimeInventory getByMId(Long[] materialsId);
+	List<Long> getTotalWareId();
 
 }

@@ -5,6 +5,13 @@
 <head>
 <title>呆滞料</title>
 <%@ include file="/WEB-INF/jsp/public/common.jspf"%>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#print').click(function(){
+		$('.printArea').printArea();
+	});
+});
+</script>
 </head>
 
 <body class="container">
@@ -20,7 +27,11 @@
 <div class="panel panel-danger">
 		<div class="panel-heading">
 			呆滞料
+			<div class="pull-right">
+				<a title="打印" id="print" href="#" class="btn btn-primary btn-sm" role="button">打印</a>
+			</div>
 		</div>
+<div class="printArea">
 	<table
 		class="table table-hover table-striped table-responsive table-bordered table-condensed">
 		<thead>
@@ -46,6 +57,7 @@
 			</s:iterator>
 		</tbody>
 	</table>
+</div>
 </div>
 	<!-- 分页信息 -->
 	<%@ include  file="/WEB-INF/jsp/public/pageView.jspf"%>

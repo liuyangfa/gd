@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-<title>顶部navigation</title>
+<title>注销成功页面</title>
 <%@ include  file="/WEB-INF/jsp/public/common.jspf"%>
 <style type="text/css">
 .jumbotron {

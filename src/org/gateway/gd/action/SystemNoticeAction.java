@@ -1,5 +1,7 @@
 package org.gateway.gd.action;
 
+import java.util.List;
+
 import org.gateway.gd.base.BaseAction;
 import org.gateway.gd.domain.SystemNotice;
 import org.gateway.gd.util.PageBean;
@@ -16,6 +18,7 @@ public class SystemNoticeAction extends BaseAction<SystemNotice> {
 
 	private int pageNum = 1;
 	private int pageSize = 8;
+	private Object data;
 
 	// 通知列表
 	public String list() throws Exception {
@@ -29,12 +32,21 @@ public class SystemNoticeAction extends BaseAction<SystemNotice> {
 
 	// 通知详情
 	public String listInfo() throws Exception {
-		
+
 		SystemNotice systemNotice = systemNoticeService.getById(model.getId());
 		systemNotice.setViewyn(SystemNotice.VIEWY);
 		systemNoticeService.save(systemNotice);
-		ActionContext.getContext().put("systemNotice", systemNotice);;
+		ActionContext.getContext().put("systemNotice", systemNotice);
+		;
 		return "listInfo";
+	}
+	
+	public String pushData() throws Exception{
+		List<SystemNotice> sysList=systemNoticeService.getNotViewNumber(SystemNotice.VIEWN);
+		int number=sysList.size();
+		data=number;
+		
+		return "json";
 	}
 
 	public int getPageNum() {
@@ -51,6 +63,14 @@ public class SystemNoticeAction extends BaseAction<SystemNotice> {
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public Object getData() {
+		return data;
+	}
+
+	public void setData(Object data) {
+		this.data = data;
 	}
 
 }

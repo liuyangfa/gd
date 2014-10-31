@@ -17,4 +17,6 @@ public interface RealtimeInventoryDao extends BaseDao<RealtimeInventory> {
 
 	Double getByMaterialsName(String materialsName);
 
+	List<Long> getTotalWareId();
+
 }

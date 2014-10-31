@@ -6,7 +6,7 @@
 <title>左侧菜单栏</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/style/css/leftMenu.css">
-<script src="${pageContext.request.contextPath}/script/jquery-1.11.1.js"></script>
+<script src="${pageContext.request.contextPath}/script/jquery-1.11.0.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/font-awesome-4.2.0/css/font-awesome.min.css">
 <script type="text/javascript">

@@ -52,6 +52,7 @@
 			<result name="top">/WEB-INF/jsp/indexAction/top.jsp</result>
 			<result name="right">/WEB-INF/jsp/indexAction/right.jsp</result>
 			<result name="bottom">/WEB-INF/jsp/indexAction/bottom.jsp</result>
+			
 		</action>
 
 		<!-- 用户登录注销功能 -->
@@ -92,6 +93,9 @@
 			<result name="listInfo">/WEB-INF/jsp/systemNoticeAction/listInfo.jsp
 			</result>
 			<result name="input">/WEB-INF/jsp/systemNoticeAction/list.jsp</result>
+			<result name="json" type="json">
+				<param name="root">data</param>
+			</result>
 		</action>
 
 		<!-- =================================系统设置=========================== -->
@@ -276,9 +280,9 @@
 			<result name="saveUI">/WEB-INF/jsp/allocationAction/saveUI.jsp</result>
 			<result name="toList" type="redirectAction">allocationAction_list</result>
 			<result name="input">/WEB-INF/jsp/allocationAction/list.jsp</result>
-			<result name="ajax" type="json">
-				<param name="root">data</param>
-			</result>
+			<!-- <result name="ajax" type="json"> -->
+			<!-- <param name="root">data</param> -->
+			<!-- </result> -->
 		</action>
 
 		<!-- ============================决策分析======================================== -->
@@ -309,9 +313,9 @@
 		<action name="abcAnalysisAction_*" class="abcAnalysisAction"
 			method="{1}">
 			<result name="list">/WEB-INF/jsp/abcAnalysisAction/list.jsp</result>
-			<result name="saveUI">/WEB-INF/jsp/abcAnalysisAction/saveUI.jsp
+			<result name="json" type="json">
+				<param name="root">data</param>
 			</result>
-			<result name="toList" type="redirectAction">abcAnalysisAction_list</result>
 		</action>
 	</package>
 </struts>
